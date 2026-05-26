@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3n-kecy+2!a!8q0@an=1045ktg#0rs$i_4kw6b(lc(3v1@(j=^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['navribazaar.in', 'www.navribazaar.in','.onrender.com', 'localhost', '127.0.0.1']
 
