@@ -26,9 +26,9 @@ SECRET_KEY = 'django-insecure-3n-kecy+2!a!8q0@an=1045ktg#0rs$i_4kw6b(lc(3v1@(j=^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['navribazaar.in', 'www.navribazaar.in', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['navribazaar.in', 'www.navribazaar.in','.onrender.com', 'localhost', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://navribazaar.in', 'https://www.navribazaar.in']
+CSRF_TRUSTED_ORIGINS = ['https://navribazaar.in', 'https://www.navribazaar.in','https://*.onrender.com']
 
 # 4. Point to where Django will store your CSS/JS files on the server
 STATIC_URL = '/static/'
