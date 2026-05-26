@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAVRIBAZAAR.IN | Lock Your Vision</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #09090b;
+        }
+        /* Amplified high-end neon text glow */
+        .neon-glow {
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(236, 72, 153, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen w-full text-zinc-100 flex items-center justify-center p-4 md:p-6 overflow-x-hidden relative">
+
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#27272a_1px,transparent_1px),linear-gradient(to_bottom,#27272a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-tr from-violet-600 to-pink-500 rounded-full blur-[140px] opacity-25 pointer-events-none"></div>
+
+    <main class="w-full max-w-xl z-10">
+        
+        <header class="text-center mb-6">
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-[0.25em] text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-pink-400 to-orange-400 neon-glow">
+                NAVRIBAZAAR.IN
+            </h1>
+        </header>
+
+        <div class="bg-zinc-900/80 backdrop-blur-xl border border-zinc-700 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            
+            {% if not success %}
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold tracking-tight text-white mb-2">
+                        What do you think Navribazaar is?
+                    </h2>
+                    <p class="text-zinc-300 font-medium text-xs md:text-sm">
+                        Can you decode what kind of brand we are cooking up? Tell us before we launch it.
+                    </p>
+                </div>
+
+                {% if error_msg %}
+                    <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-xl text-red-200 text-xs font-bold text-center">
+                        {{ error_msg }}
+                    </div>
+                {% endif %}
+
+                <form method="POST" action="" class="space-y-5">
+                    {% csrf_token %}
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-xs font-extrabold uppercase tracking-wider text-zinc-300">Tell us your idea!</label>
+                        <textarea name="user_guess" required rows="3"
+                            placeholder="Crack the code. What does 'Navri Bazaar' do? Your guess is literally as good as ours..."
+                            class="w-full bg-zinc-950 border border-zinc-600 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-400 outline-none transition-all duration-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/30 resize-none"></textarea>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-xs font-extrabold uppercase tracking-wider text-zinc-300">Which niche matches your guess?</label>
+                        <div class="relative">
+                            <select id="industrySectorSelect" name="industry_sector" required onchange="toggleOtherField()"
+                                class="w-full bg-zinc-950 border border-zinc-600 rounded-xl px-4 py-3 text-sm text-white outline-none transition-all duration-300 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/30 appearance-none cursor-pointer">
+                                <option value="" disabled selected class="text-zinc-400">Select the sector you guess...</option>
+                                <option value="clothing" class="bg-zinc-900 text-white">Clothing Store (Basic but classic)</option>
+                                <option value="accessories" class="bg-zinc-900 text-white">Accessories Store (Shiny things generation)</option>
+                                <option value="crm" class="bg-zinc-900 text-white">CRM Management (Corporate spreadsheet vibes)</option>
+                                <option value="web_dev" class="bg-zinc-900 text-white">Web Development (Turning coffee into bugs)</option>
+                                <option value="events" class="bg-zinc-900 text-white">Event Planning (Organized chaos)</option>
+                                <option value="dating" class="bg-zinc-900 text-white">Dates Planner (For people who can't pick a restaurant)</option>
+                                <option value="other" class="bg-zinc-900 text-white">Other(Something totally illegal or unhinged)</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-zinc-300 text-xs">⚡</div>
+                        </div>
+                    </div>
+
+                    <div id="otherSectorContainer" class="hidden flex flex-col gap-1.5 transition-all duration-300">
+                        <label class="text-xs font-extrabold uppercase tracking-wider text-zinc-300">Tell us before we accidentally build a dating app for cats...</label>
+                        <input type="text" id="otherSectorInput" name="other_sector"
+                            placeholder="What niche industry are you thinking of?"
+                            class="w-full bg-zinc-950 border border-zinc-600 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-400 outline-none transition-all duration-300 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/30">
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-xs font-extrabold uppercase tracking-wider text-zinc-300">Where are you geopolitical-wise?</label>
+                        <input type="text" name="user_city" required
+                            placeholder="e.g., Mumbai, Kalyan, Ahmedabad..."
+                            class="w-full bg-zinc-950 border border-zinc-600 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-400 outline-none transition-all duration-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30">
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-xs font-extrabold uppercase tracking-wider text-zinc-300">Your digital coordinate (Email)</label>
+                        <input type="email" name="user_email" required
+                            placeholder="Drop it here to see if your guess wins..."
+                            class="w-full bg-zinc-950 border border-zinc-600 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-400 outline-none transition-all duration-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/30">
+                        <span class="text-xs text-zinc-300 font-medium px-1 mt-1.5 flex items-center gap-1.5">
+                            🔒 We won't spam you. Honestly, we have attachment issues and will probably ghost your inbox anyway.
+                        </span>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full mt-3 relative group overflow-hidden rounded-xl p-[2px] focus:outline-none transition-transform duration-200 active:scale-[0.99] cursor-pointer">
+                        <span class="absolute inset-0 bg-gradient-to-r from-violet-600 via-pink-500 to-orange-500 rounded-xl"></span>
+                        <div class="px-8 py-3.5 bg-zinc-950 rounded-[10px] relative group-hover:bg-transparent transition-colors duration-300 flex items-center justify-center">
+                            <span class="text-sm font-extrabold tracking-widest text-white group-hover:text-zinc-950 transition-colors duration-300">
+                                SUBMIT YOUR VISION
+                            </span>
+                        </div>
+                    </button>
+                </form>
+
+            {% else %}
+                <div class="text-center py-8 space-y-4">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-violet-500 to-pink-500 p-[1.5px] shadow-[0_0_30px_rgba(236,72,153,0.3)] mb-2">
+                        <div class="w-full h-full bg-zinc-950 rounded-full flex items-center justify-center text-xl">
+                            🚀
+                        </div>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-pink-400 tracking-tight">
+                        Vision Locked In.
+                    </h2>
+                    <p class="text-zinc-200 font-medium text-sm max-w-sm mx-auto leading-relaxed">
+                        Thanks for your input. We have transmitted a copy of your configuration data directly to your inbox. Stay tuned for early launch updates.
+                    </p>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <footer class="text-center mt-6">
+            <p class="text-[10px] tracking-wider uppercase text-zinc-500 font-bold">&copy; 2026 Navri Bazaar. Powered by pure chaos and questionable life choices.</p>
+        </footer>
+    </main>
+
+    <script>
+        function toggleOtherField() {
+            const selectBox = document.getElementById('industrySectorSelect');
+            const otherContainer = document.getElementById('otherSectorContainer');
+            const otherInput = document.getElementById('otherSectorInput');
+            
+            if (selectBox.value === 'other') {
+                otherContainer.classList.remove('hidden');
+                otherInput.setAttribute('required', 'required');
+                otherInput.focus();
+            } else {
+                otherContainer.classList.add('hidden');
+                otherInput.removeAttribute('required');
+                otherInput.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

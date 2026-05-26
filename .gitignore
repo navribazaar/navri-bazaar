@@ -1,0 +1,14 @@
+# Ignore the virtual environment folder
+env/
+venv/
+ENV/
+
+# Ignore local environment/secret files
+.env
+
+# Ignore temporary Python cache files
+**/__pycache__/
+*.pyc
+
+# Optional: Ignore your local SQLite testing database
+db.sqlite3
