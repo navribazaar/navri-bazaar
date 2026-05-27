@@ -127,7 +127,7 @@ USE_TZ = True
 
 
 # 1. Switch to the live SMTP routing backend
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # 2. Configure Google SMTP servers
 EMAIL_HOST = 'smtp.gmail.com'
