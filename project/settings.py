@@ -131,8 +131,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # 2. Configure Google SMTP servers
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False       # Turn this to False
+EMAIL_USE_SSL = True        # Add this line as True
 
 # 3. Add your real structural credentials
 EMAIL_HOST_USER = 'navribazaar.in@gmail.com'          # <-- Your actual Gmail address
